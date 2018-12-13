@@ -1,17 +1,60 @@
+
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>search</ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar>
+      <ion-title>
+        Search
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
   
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+  <ion-content>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let item of items">
+        {{ item }}
+      </ion-item>
+  
+  
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/imgs/IMG-20180630-WA0006.jpg">
+        </ion-avatar>
+        <h2>Finn</h2>
+        <h3>I'm a big deal</h3>
+        <p>Listen, I've had a pretty messed up day...</p>
+        
+        <button class="icon" ion-button item-end > <ion-icon item-end  md="md-contacts"></ion-icon> </button>
+      </ion-item>
+  
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/imgs/IMG-20180630-WA0006.jpg">
+        </ion-avatar>
+        <h2>Han</h2>
+        <h3>Look, kid...</h3>
+        <p>I've got enough on my plate as it is, and I...</p>
+        <button class="icon" ion-button item-end > <ion-icon item-end  md="md-contacts"></ion-icon> </button>
+      </ion-item>
+  
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/imgs/IMG-20180630-WA0006.jpg">
+        </ion-avatar>
+        <h2>Rey</h2>
+        <h3>I can handle myself</h3>
+        <p>You will remove these restraints and leave...</p>
+        <button class="icon" ion-button item-end > <ion-icon item-end  md="md-contacts"></ion-icon> </button>
+      </ion-item>
+  
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/imgs/IMG-20180630-WA0006.jpg">
+        </ion-avatar>
+        <h2>Luke</h2>
+        <h3>Your thoughts betray you</h3>
+        <p>I feel the good in you, the conflict...</p>
+        <button class="icon" ion-button item-end > <ion-icon item-end  md="md-contacts"></ion-icon> </button>
+      </ion-item>
+  </ion-list>
+    
+  </ion-content>
