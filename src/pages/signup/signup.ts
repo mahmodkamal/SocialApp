@@ -1,4 +1,5 @@
 import { User } from './../../models/user';
+import { Location } from './../../models/location';
 import { UserService } from './../../services/userServices';
 import { AuthServices } from './../../services/auth';
 import { Component } from '@angular/core';
@@ -17,7 +18,7 @@ export class SignupPage {
 
   onSignup(form: NgForm)
   { 
-    this.user=new User(form.value.email,form.value.password,form.value.age,"",null,form.value.username);
+    this.user=new User(form.value.email,form.value.password,form.value.age,"",new Location(0,0),form.value.username);
     console.log(this.user);
 
     const loading =this.loadCtrl.create({
