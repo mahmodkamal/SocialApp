@@ -12,6 +12,7 @@
 </ion-header>
 
 <ion-content padding>
+<<<<<<< HEAD
   The world is your oyster.
    <ion-input type="text" value="nnnn"></ion-input>
   <div  *ngIf="users">
@@ -21,4 +22,69 @@
   <p *ngIf="user"> 
     {{user.username}}: has sign up
   </p>
+=======
+ 
+ <form #form="ngForm" (ngSubmit)="Addpost(form)">
+    <ion-card class="post">  
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+          </ion-avatar>
+          <h2>Marty McFly</h2>
+        </ion-item>
+      
+        <img class="imgpost" src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+      
+        <ion-card-content>
+          <textarea placeholder="What's on your mind?" ngModel name="text" required></textarea>
+        </ion-card-content>
+        <ion-row>
+          
+          <ion-col>
+            <button ion-button  outline block color="danger" [disabled]="!form.valid">
+              Post
+            </button>
+          </ion-col>
+          <ion-col>
+              <button ion-button block outline color="danger" icon-start [disabled]="!form.valid">
+                <ion-icon name='image'></ion-icon>
+                Upload Image
+              </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+     
+ </form> 
+ <hr>
+  <ion-card>  
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+      </ion-avatar>
+      <h2>Marty McFly</h2>
+      <p>November 5, 1955</p>
+    </ion-item>
+  
+    <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+  
+    <ion-card-content>
+      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+    </ion-card-content>
+  
+    <ion-row>
+      <ion-col>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='thumbs-up'></ion-icon>
+          12 Likes
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+>>>>>>> 1d6f589052440d0f2fbcfa79f8bfe9e7bb254c91
 </ion-content>
