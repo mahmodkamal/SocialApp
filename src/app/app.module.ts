@@ -1,3 +1,5 @@
+import { PostService } from './../services/postService';
+import { LocationPage } from './../pages/location/location';
 import { AuthServices } from './../services/auth';
 import { SignupPage } from './../pages/signup/signup';
 import { SigninPage } from './../pages/signin/signin';
@@ -15,20 +17,29 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { UserService } from '../services/userServices';
 import { HttpModule } from '@angular/http';
+import { AgmCoreModule } from '@agm/core';
+import { NotificationService } from '../services/notificationService';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    LocationPage,
     NotificationPage,
     ProfilePage,
     SearchPage,
     SigninPage,
     SignupPage,
-    TabsPage
+    TabsPage,
+    NotificationPage,
+    SearchPage
+    
   ],
   imports: [
     BrowserModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyDoDSUnSuYfJCLY-PkdDBIa8ZN_2BE6ank'
+    }),
     IonicModule.forRoot(MyApp),
     HttpModule
   ],
@@ -41,13 +52,14 @@ import { HttpModule } from '@angular/http';
     SearchPage,
     SigninPage,
     SignupPage,
-    TabsPage
+    TabsPage,
+    LocationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServices,UserService
+    AuthServices,UserService,PostService,NotificationService
   ]
 })
 export class AppModule {}

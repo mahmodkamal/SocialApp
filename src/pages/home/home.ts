@@ -13,24 +13,18 @@ export class HomePage implements OnInit {
   constructor(public navCtrl: NavController ,private useservice: UserService) {
 
   }
-<<<<<<< HEAD
   ionViewWillEnter()
   {
     this.user=this.useservice.Loggeduser;
     this.users=this.useservice.Users;
   }
-  ngOnInit()
-  {
-    
-    
-=======
+
   
   ngOnInit()
   {
     this.user=this.useservice.Loggeduser;
     this.users=this.useservice.Users;
 
->>>>>>> 1d6f589052440d0f2fbcfa79f8bfe9e7bb254c91
     console.log(this.users, this.user);
   }
 

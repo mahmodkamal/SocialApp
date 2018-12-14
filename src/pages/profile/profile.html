@@ -12,28 +12,117 @@
 
 
 <ion-content padding>
-  <ion-avatar item-start>
-    <img src="/assets/imgs/17_user_profie_avatar_male_picture_person-512.png">
-  </ion-avatar>
-  <ion-item>
-    <ion-label>Username</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label floating>Email</ion-label>
-    <ion-input type="email"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label stacked>Age</ion-label>
-    <ion-input type="age"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label>location</ion-label>
-    <ion-input type="locate"></ion-input>
-  </ion-item>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+    <div class="image">
+        <ion-avatar item-start>
+            <div class="circle-pic">
+                <img src="/assets/imgs/17_user_profie_avatar_male_picture_person-512.png">
+            </div>
+          </ion-avatar>
+    </div>
+    <ion-item>
+      <ion-label>Username</ion-label>
+      <ion-input ngModel type="text" name="name"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input ngModel type="email" name="email"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label stacked>Age</ion-label>
+      <ion-input ngModel type="age" name="age"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <button ion-button 
+          block 
+          outline
+          type="button"
+          icon-left
+          (click)="onOpenMap()">
+          <ion-icon name="map"></ion-icon>
+          Select On Map	
+          </button>
+    </ion-item>
   <button ion-button block>Save Profile</button>
+    </form>
+<br>
 
+<ion-content padding>
+    The world is your oyster.
+     <ion-input type="text" value="nnnn"></ion-input>
+    <div  *ngIf="users">
+    <p *ngFor="let user of users">
+      {{user.username}} :sign in
+    </p></div>
+    <p *ngIf="user"> 
+      {{user.username}}: has sign up
+    </p>
+   
+   <form #form="ngForm" (ngSubmit)="Addpost(form)">
+      <ion-card class="post">  
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+            </ion-avatar>
+            <h2>Marty McFly</h2>
+          </ion-item>
+        
+          <img class="imgpost" src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+        
+          <ion-card-content>
+            <textarea placeholder="What's on your mind?" ngModel name="text" required></textarea>
+          </ion-card-content>
+          <ion-row>
+            
+            <ion-col>
+              <button ion-button  outline block color="danger" [disabled]="!form.valid">
+                Post
+              </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button block outline color="danger" icon-start [disabled]="!form.valid">
+                  <ion-icon name='image'></ion-icon>
+                  Upload Image
+                </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+       
+   </form> 
+   <hr>
+    <ion-card>  
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+        </ion-avatar>
+        <h2>Marty McFly</h2>
+        <p>November 5, 1955</p>
+      </ion-item>
+    
+      <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+    
+      <ion-card-content>
+        <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+      </ion-card-content>
+    
+      <ion-row>
+        <ion-col>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='thumbs-up'></ion-icon>
+            12 Likes
+          </button>
+        </ion-col>
+        <ion-col text-right>
+          <button ion-button clear small color="danger" icon-start>
+            <ion-icon name='share-alt'></ion-icon>
+            Share
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-content>
+  
 </ion-content>
