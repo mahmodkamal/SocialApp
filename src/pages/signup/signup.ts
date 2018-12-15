@@ -1,3 +1,4 @@
+import { Post } from './../../models/post';
 import { User } from './../../models/user';
 import { Location } from './../../models/location';
 import { UserService } from './../../services/userServices';
@@ -18,7 +19,13 @@ export class SignupPage {
 
   onSignup(form: NgForm)
   { 
-    this.user=new User(form.value.email,form.value.password,form.value.age,"",new Location(0,0),form.value.username)
+    this.user=new User();
+    this.user.age=form.value.age;
+    this.user.email=form.value.email;
+    this.user.imgUrl="";
+    this.user.username=form.value.username;
+    this.user.password=form.value.password;
+    this.user.location=new Location(0,0);
     console.log(this.user);
 
     const loading =this.loadCtrl.create({
@@ -27,20 +34,11 @@ export class SignupPage {
     loading.present();
     this.authService.signup(form.value.email ,form.value.password)
     .then(data => 
-     this.authService.getActiveUser().getIdToken()
-      .then((token: string)=>
-        {
-          loading.dismiss();
-          this.userService.AddUser(this.user,token).subscribe(
-            date=>
-            {
-              
-              //console.log(data)
-            },
-            (error)=>{this.handleError(error.message);}
-          );  
-        })
-    
+      {
+        
+        this.userService.AddUser(this.user);
+        loading.dismiss();
+      }
     )
     .catch(error => 
       {const alert=this.alertCtrl.create({

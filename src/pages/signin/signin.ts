@@ -33,19 +33,7 @@ export class SigninPage {
       .then(data => 
         {
           loading.dismiss();
-          this.authService.getActiveUser().getIdToken()
-          .then((token:string)=>
-          {
-            this.userService.RetriveUsers(token)
-            .subscribe(
-              (users :User[])=>
-              {
-                this.userService.RetriveSpecificUserUser(this.email);
-              },
-              (error)=>{this.handleError(error.message);}
-            )
-          }
-          )
+          this.userService.EmailOfloginUser=this.email;
         }
         )
       .catch(error => 

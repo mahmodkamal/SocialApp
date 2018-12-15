@@ -20,8 +20,12 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl:MenuController,private authservice: AuthServices) {
     firebase.initializeApp({
-    apiKey: "AIzaSyAViuMGdlJIqqo8QjLZXi2W_Tun3Vnv6GA",
-    authDomain: "socialapp-de96a.firebaseapp.com",
+      apiKey: "AIzaSyAViuMGdlJIqqo8QjLZXi2W_Tun3Vnv6GA",
+      authDomain: "socialapp-de96a.firebaseapp.com",
+      databaseURL: "https://socialapp-de96a.firebaseio.com",
+      projectId: "socialapp-de96a",
+      storageBucket: "socialapp-de96a.appspot.com",
+      messagingSenderId: "326913249290"
     });
     firebase.auth().onAuthStateChanged(user =>
       {

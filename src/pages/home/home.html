@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Home
+      {{ user?.username}}'s Home
     </ion-title>
     <ion-buttons start>
       <button ion-button icon-only menuToggle>
@@ -12,42 +12,39 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-   <ion-input type="text" value="nnnn"></ion-input>
-  <div  *ngIf="users">
-  <p *ngFor="let user of users">
-    {{user.username}} :sign in
-  </p></div>
-  <p *ngIf="user"> 
-    {{user.username}}: has sign up
-  </p>
- 
  <form #form="ngForm" (ngSubmit)="Addpost(form)">
     <ion-card class="post">  
         <ion-item>
           <ion-avatar item-start>
-            <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+            <img [src]="user?.imgUrl">
           </ion-avatar>
-          <h2>Marty McFly</h2>
+          <h2>{{user?.username}}</h2>
         </ion-item>
       
-        <img class="imgpost" src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+        <img class="imgpost" *ngIf="imagePath!=''" [src]="imagePath">
       
         <ion-card-content>
           <textarea placeholder="What's on your mind?" ngModel name="text" required></textarea>
         </ion-card-content>
         <ion-row>
-          
           <ion-col>
-            <button ion-button  outline block color="danger" [disabled]="!form.valid">
-              Post
+            <button ion-button block outline color="danger"  type="button" icon-start [disabled]="!form.valid" (click)="Usecamera()">
+              <ion-icon name='camera'></ion-icon>
+              Use Camera
             </button>
           </ion-col>
           <ion-col>
-              <button ion-button block outline color="danger" icon-start [disabled]="!form.valid">
+              <button ion-button block outline color="danger" type="button" icon-start [disabled]="!form.valid" (click)="UploadImage()">
                 <ion-icon name='image'></ion-icon>
                 Upload Image
               </button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+             <button ion-button type="submit" outline block color="danger" [disabled]="!form.valid">
+              Post
+             </button>
           </ion-col>
         </ion-row>
       </ion-card>

@@ -35,10 +35,7 @@ export class ProfilePage {
 
   ionViewWillEnter()
   {
-    this.user=this.useservice.Loggeduser;
-    this.users=this.useservice.Users;
-
-    console.log(this.users, this.user);
+      
   }
   onOpenMap(){
   	 
