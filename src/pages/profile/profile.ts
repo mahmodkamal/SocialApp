@@ -106,7 +106,7 @@ export class ProfilePage {
         }).present();
       })
   }
- 
+  
   editProfile(f :NgForm)
   {
     const loading = this.loading.create({
