@@ -1,3 +1,4 @@
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { PostService } from './../services/postService';
 import { LocationPage } from './../pages/location/location';
 import { AuthServices } from './../services/auth';
@@ -61,7 +62,7 @@ import { Camera } from '@ionic-native/camera';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServices,UserService,PostService,NotificationService
-    ,Camera
+    ,Camera,LocalNotifications
   ]
 })
 export class AppModule {}

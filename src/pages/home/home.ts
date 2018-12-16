@@ -51,7 +51,7 @@ export class HomePage implements OnInit {
   {
     this.selctedPost=type;
   }
-  
+
   Usecamera()
   {
     this.camera.getPicture({
@@ -150,7 +150,7 @@ export class HomePage implements OnInit {
     }
     let followindex=this.FollowingUsers.indexOf(user);  
     this.FollowingUsers[followindex]=user;  
-    this.postService.Like(post,user);
+    this.postService.Like(post,user,this.user.key);
   }
   disLike(post:Post,user :User,posttype:string)
   {
@@ -171,7 +171,7 @@ export class HomePage implements OnInit {
     }
     let followindex=this.FollowingUsers.indexOf(user);  
     this.FollowingUsers[followindex]=user;
-    this.postService.disLike(post,user);
+    this.postService.disLike(post,user,this.user.key);
   }
   share(post:Post)
   {
@@ -192,4 +192,5 @@ export class HomePage implements OnInit {
       }
     });
   }
+  
 }

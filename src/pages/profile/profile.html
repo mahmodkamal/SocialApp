@@ -12,17 +12,29 @@
 
 
 <ion-content padding>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
-    <div class="image">
+    <form #f="ngForm" (ngSubmit)="(f)" >
+    <div class="circle-pic">
         <ion-avatar item-start>
-            <div class="circle-pic">
-                <img src="/assets/imgs/17_user_profie_avatar_male_picture_person-512.png">
+            <div class="image">
+                <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
             </div>
           </ion-avatar>
     </div>
     <ion-item>
-      <ion-label>Username</ion-label>
-      <ion-input ngModel type="text" name="name"></ion-input>
+      <ion-row>
+        <ion-col>
+          <button ion-button block outline color="danger"  type="button" icon-start  (click)="Usecamera()">
+            <ion-icon name='camera'></ion-icon>
+            Use Camera
+          </button>
+        </ion-col>
+        <ion-col>
+            <button ion-button block outline color="danger" type="button" icon-start (click)="UploadImage()">
+              <ion-icon name='image'></ion-icon>
+              Upload Image
+            </button>
+        </ion-col>
+      </ion-row>
     </ion-item>
     
     <ion-item>
@@ -32,7 +44,7 @@
     
     <ion-item>
       <ion-label stacked>Age</ion-label>
-      <ion-input ngModel type="age" name="age"></ion-input>
+      <ion-input ngModel type="age" name="age" ></ion-input>
     </ion-item>
     
     <ion-item>
@@ -61,68 +73,59 @@
       {{user.username}}: has sign up
     </p>
    
-   <form #form="ngForm" (ngSubmit)="Addpost(form)">
-      <ion-card class="post">  
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
-            </ion-avatar>
-            <h2>Marty McFly</h2>
-          </ion-item>
-        
-          <img class="imgpost" src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
-        
-          <ion-card-content>
-            <textarea placeholder="What's on your mind?" ngModel name="text" required></textarea>
-          </ion-card-content>
-          <ion-row>
-            
-            <ion-col>
-              <button ion-button  outline block color="danger" [disabled]="!form.valid">
-                Post
-              </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button block outline color="danger" icon-start [disabled]="!form.valid">
-                  <ion-icon name='image'></ion-icon>
-                  Upload Image
-                </button>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-       
-   </form> 
+   
    <hr>
-    <ion-card>  
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
-        </ion-avatar>
-        <h2>Marty McFly</h2>
-        <p>November 5, 1955</p>
-      </ion-item>
-    
-      <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
-    
-      <ion-card-content>
-        <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-      </ion-card-content>
-    
-      <ion-row>
-        <ion-col>
-          <button ion-button clear small color="danger" icon-start>
-            <ion-icon name='thumbs-up'></ion-icon>
-            12 Likes
-          </button>
-        </ion-col>
-        <ion-col text-right>
-          <button ion-button clear small color="danger" icon-start>
-            <ion-icon name='share-alt'></ion-icon>
+   <ion-list-header>
+    Posts
+  </ion-list-header>
+   <div *ngFor="let followuser of FollowingUsers">
+   <ion-card *ngFor="let post of followuser.myPosts">  
+     <ion-item>
+       <ion-avatar item-start>
+         <img src="{{followuser.imgUrl}}">
+       </ion-avatar>
+       <h2>{{followuser.username}}</h2>
+       <p>{{post.date}}</p>
+     </ion-item>
+     <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+   
+     <ion-card-content>
+       <p>{{post.text}}</p>
+     </ion-card-content>
+     <ion-row>
+      <div *ngIf="post.Like?.length == 0; then like else check "> </div> 
+        <ng-template #check>  
+         <ion-col >
+             <button ion-button clear small color="danger"  icon-start (click)="Like(post,followuser)" >
+               <ion-icon name='thumbs-up-outline'></ion-icon>
+                {{post.Like?.length }}
+             </button>
+           </ion-col>
+         <ng-template #dislike> 
+           <ion-col>
+                <button ion-button clear small color="danger"  icon-start (click)="disLike(post,followuser)">
+                   <ion-icon name='thumbs-up' ></ion-icon>
+                     {{post.Like?.length}}
+                </button>    
+           </ion-col>  
+         </ng-template> 
+       </ng-template>  
+       <ng-template #like>
+           <ion-col>
+               <button ion-button clear small color="danger"  icon-start (click)="Like(post,followuser)">
+                  <ion-icon name='thumbs-up-outline' ></ion-icon>
+                    {{post.Like?.length}}
+               </button>    
+          </ion-col>   
+       </ng-template>
+       <ion-col text-right>
+         <button ion-button clear small color="danger" icon-start (click)="share(post,followuser)">
+           <ion-icon name='share-alt'></ion-icon>
             Share
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </ion-content>
-  
-</ion-content>
+         </button>
+       </ion-col>
+     </ion-row>
+   </ion-card>
+ </div> 
+ </ion-content>
+ 

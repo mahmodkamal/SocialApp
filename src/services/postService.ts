@@ -47,7 +47,7 @@ export class PostService
          }).present();
       } 
     }
-    public Like(post:Post , user:User)
+    public Like(post:Post , user:User,key:string)
     {
         const updateuser=
         {
@@ -82,7 +82,7 @@ export class PostService
          });
         console.log(user);
     }
-    public disLike(post:Post ,user:User)
+    public disLike(post:Post ,user:User,key:string)
     {
         const updateuser=
         {
