@@ -70,7 +70,7 @@
     <ion-row>
      <div *ngIf="post.Like?.length == 0; then like else check "> </div> 
        <ng-template #check>  
-        <ion-col *ngIf="checkuser(user.key , post.Like) ; else dislike">
+        <ion-col >
             <button ion-button clear small color="danger"  icon-start (click)="Like(post,followuser)" >
               <ion-icon name='thumbs-up-outline'></ion-icon>
                {{post.Like?.length }}

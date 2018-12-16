@@ -158,17 +158,5 @@ export class HomePage implements OnInit {
   {
 
   }
-  checkuser(key:string, Like :[])
-  {
-    Like.forEach((like)=>
-    {
-      if(key===like)
-      {
-        return true;
-      }else
-      {
-        return false;
-      }
-    })
-  }
+  
 }

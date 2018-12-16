@@ -1,18 +1,21 @@
 page-profile {
     .image {
-        height: 200px; 
-        width: 200px; 
+       height: 200px; 
+       width: 200px; 
        border: 2px solid #fff;
        border-radius: 50%;
        box-shadow: 0 0 5px gray;
        display: inline-block;
        margin-left: 85px;
        margin-right: 20px;
+       border-radius: 70% !important;
+       overflow: hidden;
+       padding-top:0;
    }
    
    .circle-pic{
-       width:200px;
-       height:200px;
+       width:250px;
+       height:250px;
        -webkit-border-radius: 80%;
        border-radius: 50%;
    }

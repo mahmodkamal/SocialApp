@@ -177,7 +177,6 @@ export class UserService
   {
     this.UpdateData= {
         email: user.email,
-        password: user.password,
         age: user.age,
         profile_picture : user.imgUrl,
         location : user.location
