@@ -47,6 +47,7 @@ export class SigninPage {
            }
          ]
       });
+      loading.dismiss();
       alert.present();
     });
   }
