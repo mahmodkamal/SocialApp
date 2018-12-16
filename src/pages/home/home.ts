@@ -16,6 +16,7 @@ export class HomePage implements OnInit {
  post:Post;
  FollowingUsers =[];
  imagePath="";
+ selctedPost="Follow"
   constructor
   (
      public navCtrl: NavController 
@@ -35,23 +36,22 @@ export class HomePage implements OnInit {
   }
   ngOnInit()
   {
-    const refUsers=firebase.database().ref("Users");
-    refUsers.on("value",()=>
-    {
      this.useservice.RetriveUsers()
      .then(()=>
       {
         console.log(this.useservice.EmailOfloginUser);
         this.useservice.RetriveSpecificUserUser(this.useservice.EmailOfloginUser);
         this.user=this.useservice.Loggeduser;
-        this.user.follow.push(this.user.key)
-        console.log(this.user.follow);
         this.FollowingUsers=this.useservice.RerieveFollowedUsers(this.user.follow);
         console.log(this.FollowingUsers);
       }
       );
-    })
   }
+  show(type :string)
+  {
+    this.selctedPost=type;
+  }
+  
   Usecamera()
   {
     this.camera.getPicture({
@@ -132,33 +132,54 @@ export class HomePage implements OnInit {
       form.reset();
     }
   }
-  Like(post:Post ,user :User)
+  Like(post:Post ,user:User,posttype:string)
   {
-    console.log(user);
-    console.log(post);
-    let index=user.myPosts.indexOf(post);  
-    user.myPosts[index].Like.push(this.user.key)
-    let followindex=this.FollowingUsers.indexOf(user);  
-    this.FollowingUsers[followindex]=user;
     post.Like.push(this.user.key);
+    
+    if(posttype==="my" || posttype==="follow" )
+    {
+      let index=user.myPosts.indexOf(post);
+      user.myPosts[index]=post;
+      user.myPosts[index]=post;
+    }
+    else 
+    {
+      let index=user.sharedpost.indexOf(post);
+      user.sharedpost[index]=post;
+      user.sharedpost[index]=post;
+    }
+    let followindex=this.FollowingUsers.indexOf(user);  
+    this.FollowingUsers[followindex]=user;  
     this.postService.Like(post,user);
   }
-  disLike(post:Post,user :User)
+  disLike(post:Post,user :User,posttype:string)
   {
     console.log(user);
     console.log(post);
-    let index=user.myPosts.indexOf(post);  
-    user.myPosts[index].Like.push(this.user.key)
+    let postindex=post.Like.indexOf(this.user.key);
+    post.Like.splice(postindex,1);
+   
+    if(posttype==="follow"|| posttype==="my" )
+    {
+      let index=user.myPosts.indexOf(post);
+      user.myPosts[index]=post;
+    }
+    else 
+    {
+      let index=user.sharedpost.indexOf(post);
+      user.sharedpost[index]=post;
+    }
     let followindex=this.FollowingUsers.indexOf(user);  
     this.FollowingUsers[followindex]=user;
-    post.Like.push(this.user.key);
     this.postService.disLike(post,user);
   }
-  share(post:Post,user :User)
+  share(post:Post)
   {
-
+    post.share.push(this.user.key);
+    this.user.sharedpost.push(post);
+    this.postService.share(post,this.user);
   }
-  checkuser(key:string, Like :[])
+  checkuser(key:string, Like :string[])
   {
     Like.forEach((like)=>
     {
@@ -169,6 +190,6 @@ export class HomePage implements OnInit {
       {
         return false;
       }
-    })
+    });
   }
 }

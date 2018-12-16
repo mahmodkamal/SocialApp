@@ -35,13 +35,14 @@ export class SignupPage {
     this.authService.signup(form.value.email ,form.value.password)
     .then(data => 
       {
-        
         this.userService.AddUser(this.user);
         loading.dismiss();
       }
     )
     .catch(error => 
-      {const alert=this.alertCtrl.create({
+      { 
+       loading.dismiss();
+       const alert=this.alertCtrl.create({
        title:"failed", 
        message:error.message,
        buttons : 

@@ -9,6 +9,15 @@ export class PostService
     constructor(private toastCtrl:ToastController){}
     public AddPost(post :Post,user :User)
     { 
+      if(post.imgurl==null)
+      {
+        post.imgurl="";  
+      }
+      const postRef =firebase.database().ref("Posts");
+      let key=postRef.push(post).key;
+      let index=user.myPosts.indexOf(post);
+      user.myPosts[index].postid=key;
+      if(key){
         const updatedata=
         {
             email:user.email, 
@@ -22,18 +31,22 @@ export class PostService
             myPosts:user.myPosts,
             follow:user.follow
         };  
-      const postRef =firebase.database().ref("Posts");
-      postRef.push(post).then(()=>
-      {
+        console.log(key);
         const updateUserPost= firebase.database().ref('/Users/'+user.key);
         updateUserPost.set(updatedata).then(()=>{this.toastCtrl.create({
         message:'Post has been added',
         duration:3000
-      }).present();})
-      });
-      console.log(user);
-
-    } 
+       }).present();
+       });
+       console.log(user);
+      }else
+      {
+         this.toastCtrl.create({
+          message:'there are a problem  to add the post',
+            duration:3000
+         }).present();
+      } 
+    }
     public Like(post:Post , user:User)
     {
         const updateuser=
@@ -60,7 +73,7 @@ export class PostService
         }; 
         const postRef =firebase.database().ref("/Posts/"+post.postid);
         postRef.set(updatePost).then(()=>
-        {
+        { 
           const updateUserPost= firebase.database().ref('/Users/'+user.key);
           updateUserPost.set(updateuser).then(()=>{this.toastCtrl.create({
           message:'you liked this post',
@@ -83,7 +96,7 @@ export class PostService
             followers :user.followers,
             myPosts:user.myPosts,
             follow:user.follow
-        }; 
+        };      
         const updatePost=
         {
             text:post.text,
@@ -98,14 +111,46 @@ export class PostService
         {
           const updateUserPost= firebase.database().ref('/Users/'+user.key);
           updateUserPost.set(updateuser).then(()=>{this.toastCtrl.create({
-          message:'you liked this post',
+          message:'you unliked this post',
           duration:3000
            }).present();})
          });
         console.log(user);
     }
-    public share(post:Post ,user:User,shareduser :User)
+    public share(post:Post ,user:User)
     {
-
+        console.log(post);
+        const updatePost=
+        {
+            text:post.text,
+            imgurl:post.imgurl,
+            date :post.date,
+            userid:post.userid,
+            Like:post.Like,
+            share:post.share
+        }; 
+        const updateshareuser=
+        {
+            email:user.email, 
+            password :user.password,
+            age :user.age,
+            imgUrl:user.imgUrl,
+            location :user.location,
+            username :user.username,
+            sharedpost: user.sharedpost,
+            followers :user.followers,
+            myPosts:user.myPosts,
+            follow:user.follow
+        };
+      const postref=firebase.database().ref("/Posts/"+post.postid);
+      postref.set(updatePost).then(()=>
+      {
+        const userref=firebase.database().ref("/Users/"+user.key);
+        userref.set(updateshareuser).then(()=>{this.toastCtrl.create({
+            message:'the post have bean shared',
+            duration:3000
+             }).present();
+            })
+           });
     }
 }

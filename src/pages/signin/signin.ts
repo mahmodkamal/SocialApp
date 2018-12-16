@@ -37,7 +37,9 @@ export class SigninPage {
         }
         )
       .catch(error => 
-        {const alert=this.alertCtrl.create({
+        {
+         loading.dismiss();
+         const alert=this.alertCtrl.create({
          title:"failed", 
          message:error.message,
          buttons : 

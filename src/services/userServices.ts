@@ -26,8 +26,8 @@ export class UserService
   }
   
   public AddUser(user :User)
-  {
-    this.Loggeduser=user;  
+  { 
+    this.EmailOfloginUser=user.email;
     const userRef =firebase.database().ref("Users");
     userRef.push(user);
   }
