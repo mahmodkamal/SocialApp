@@ -5,6 +5,7 @@ import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { NotificationService } from '../../services/notificationService';
 
 @IonicPage()
 @Component({
@@ -26,16 +27,11 @@ export class TabsPage {
   profilePage=ProfilePage;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public localNotifications :LocalNotifications) {
+    public notficationService : NotificationService) {
   }
   ionViewWillEnter()
   {
-  	  this.localNotifications.schedule({
-  	  	text:'',
-  	  	trigger:{at:new Date(new Date().getTime()+3600)},
-  	  	led: 'FF0000',
-  	  	sound:'file://sound.mp3'
-  	  });
+  	 this.notficationService.FollowNotfication();
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');

@@ -1,3 +1,5 @@
+import { User } from './../../models/user';
+import { NotificationService } from './../../services/notificationService';
 import { UserService } from './../../services/userServices';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -18,9 +20,12 @@ import { NgForm } from '@angular/forms';
 export class SearchPage {
    searchedList :any[];
    result =false;
+   requestedUser:User;
+   loggedUser :User;
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
-     public usrService:UserService
+     public usrService:UserService,
+     public NotificationService : NotificationService
      ) {
   }
 
@@ -33,9 +38,14 @@ export class SearchPage {
     this.result = true;
     console.log(f);
   }
-  follow(form :NgForm)
+  follow(i)
   {
-    console.log(form);
+    this.requestedUser= this.searchedList.find(i);
+    if (this.usrService.Loggeduser)
+    {
+      this.loggedUser = this.usrService.Loggeduser;
+      this.usrService.follow(this.loggedUser,this.requestedUser);
+    }
   }
 
 }

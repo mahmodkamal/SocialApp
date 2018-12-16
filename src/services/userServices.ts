@@ -213,5 +213,20 @@ export class UserService
   public GetSearchedList(){
       return this.SearchedList.slice();
   }
+  public follow (folowUser :User,folower :User)
+  {
+      if(this.Loggeduser)
+      {
+        this.Loggeduser.follow.push(folower.key);
+        folower.followers.push(folowUser.key);
+        firebase.database().ref('users/follow').set({
+          follow: folower.key
+        });
+        firebase.database().ref('users/followers').set({
+          followers: this.Loggeduser.key
+        });
+        return true;
+      }
+  }
 } 
  
