@@ -7,6 +7,7 @@ import { Http, Response } from "@angular/http";
 import 'rxjs/Rx';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
+import { Post } from '../models/post';
 @Injectable()
 export class UserService
 {
@@ -38,10 +39,11 @@ export class UserService
     {
      if(user.email===Email)
       {
-
+        
         this.Loggeduser.age=user.age;
         this.Loggeduser.email=user.email;
         this.Loggeduser.imgUrl=user.imgUrl;
+        //this.Loggeduser.imgUrl="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg";
         this.Loggeduser.username=user.username;
         this.Loggeduser.key=user.key;
         this.Loggeduser.location=user.location;
@@ -63,6 +65,25 @@ export class UserService
  {
     return this.hits.slice();
  }
+ public RerieveFollowedUsers(follow :string[])
+ {
+   let users=[];  
+   console.log(follow);
+   this.Users.forEach((user)=>
+   {
+    for(let followuser of follow)
+    {
+     if(user.key === followuser)
+     {
+      users.push(user);
+      console.log(user);
+     }
+    } 
+    
+   });
+   console.log(users);
+   return users;
+ }
  public RetriveUsers()
   {
     const personRef= firebase.database().ref('Users');
@@ -81,12 +102,28 @@ export class UserService
       user.email=childSnapshot.val().email;
       user.age=childSnapshot.val().age;
       user.imgUrl=childSnapshot.val().imgUrl;
+      //user.imgUrl="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg";
       user.location=childSnapshot.val().location;
       user.password=childSnapshot.val().password;
       user.username=childSnapshot.val().username;
       if(childSnapshot.hasChild("sharedpost"))
       {
         user.sharedpost=childSnapshot.val().sharedpost;
+        user.sharedpost.forEach((post)=>
+        {
+          if(post.Like==null)
+          {
+            post.Like=[];    
+          }
+          if(post.share==null)
+          {
+            post.share=[];    
+          }
+          if(post.imgurl==null)
+          {
+            post.imgurl="";    
+          }
+        });
       }
       else
       {
@@ -111,6 +148,21 @@ export class UserService
       if(childSnapshot.hasChild("myPosts"))
       {
         user.myPosts=childSnapshot.val().myPosts;
+        user.myPosts.forEach((post)=>
+        {
+          if(post.Like==null)
+          {
+            post.Like=[];    
+          }
+          if(post.share==null)
+          {
+            post.share=[];    
+          }
+          if(post.imgurl==null)
+          {
+            post.imgurl="";    
+          }
+        });
       }
       else
       {
