@@ -178,9 +178,13 @@ export class UserService
   public UpdateProfile(user ,token)
   {
     this.UpdateData= {
-        age: user.age,
-        profile_picture : user.imgUrl,
-        location : user.location
+        age      : user.age,
+        imgUrl   : user.imgUrl,
+        location : user.location,
+        email    : user.email,
+        myPosts  : user.myPosts,
+        password : user.password,
+        username : user.username
     };
     var updates = {};
     updates['/Users/' + token] =  this.UpdateData;
@@ -228,8 +232,19 @@ export class UserService
         firebase.database().ref('users/followers').set({
           followers: this.Loggeduser.key
         });
+        firebase.database().ref('notfication').set({
+            content:'follow Notfication from '+ this.Loggeduser.email,
+            postid :'',
+            userid :this.Loggeduser.key,
+            type :'Follow'
+        });
         return true;
       }
+    
+  }
+  public followNotfication()
+  {
+    
   }
 } 
  

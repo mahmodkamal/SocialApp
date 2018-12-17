@@ -21,6 +21,7 @@ import { HttpModule } from '@angular/http';
 import { AgmCoreModule } from '@agm/core';
 
 import { Camera } from '@ionic-native/camera';
+import { NotificationService } from '../services/notificationService';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { Camera } from '@ionic-native/camera';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServices,UserService,PostService
+    AuthServices,UserService,PostService,NotificationService
     ,Camera,LocalNotifications
   ]
 })

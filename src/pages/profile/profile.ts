@@ -116,15 +116,18 @@ export class ProfilePage {
     loading.present();
     this.useservice.RetriveSpecificUserUser(this.useservice.EmailOfloginUser);
     this.user.age=f.value.age;
-    this.user.email = f.value.email;
     this.user.location = this.location;
+    this.user.email = this.user.email;
+    this.user.password = this.user.password;
+    this.user.myPosts =this.user.myPosts;
+    this.user.username =this.user.username;
     if(this.imagePath)
     {
       console.log('pingo');
     const ImageRef=firebase.storage().ref("PostsPictures/image-"+new Date().getMilliseconds()+".jpg");
     ImageRef.putString(this.imagePath,firebase.storage.StringFormat.DATA_URL)
     .then((snapshot)=>{
-    this.user.imgUrl=snapshot.downloadURL;
+    this.user.imgUrl=this.imagePath;
     this.useservice.UpdateProfile(this.user,this.useservice.Loggeduser.key);
     loading.dismiss();
   })

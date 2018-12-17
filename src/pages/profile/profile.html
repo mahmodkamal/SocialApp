@@ -12,11 +12,11 @@
 
 
 <ion-content padding>
-    <form #f="ngForm" (ngSubmit)="(f)" >
+    <form #f="ngForm" (ngSubmit)="editProfile(f)" >
     <div class="circle-pic">
         <ion-avatar item-start>
             <div class="image">
-                <img src="{{imagePath}}">
+                <img src="{{user?.imgUrl}}">
             </div>
           </ion-avatar>
     </div>
@@ -53,7 +53,7 @@
           Select On Map	
           </button>
     </ion-item>
-  <button ion-button type="submit" block>Save Profile</button>
+      <button ion-button type="submit" block>Save Profile</button>
     </form>
 <br>
 
