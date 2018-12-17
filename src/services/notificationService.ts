@@ -9,6 +9,7 @@ export class NotificationService
  constructor( public userService :UserService ,public Notfication : LocalNotifications){
 
  }
+ ref :any;
 
  public pushNotfication(message)
  {
@@ -19,15 +20,11 @@ export class NotificationService
         sound:'file://sound.mp3'
     });
  }
- public finduser(key)
- {
-   return this.userService.LoadedUsers.find(key);
- }
  public FollowNotfication()
  {  
     const personRef= firebase.database().ref('Users/followers');
     personRef.on('value', function(snapshot) {
-        this.pushNotfication(this.finduser(snapshot).email+'is following you now');
+        console.log(snapshot);
       });
  }  
 }

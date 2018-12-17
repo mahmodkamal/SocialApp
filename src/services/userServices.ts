@@ -8,12 +8,14 @@ import 'rxjs/Rx';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import { Post } from '../models/post';
+
 @Injectable()
 export class UserService
 {
   Loggeduser: User;
   Users :User[]=[];
   LoadedUsers :User[]=[];
+  LodedList:User[]=[];
   EmailOfloginUser :string;
   SearchedList: User[]; 
   userid:string;
@@ -176,7 +178,6 @@ export class UserService
   public UpdateProfile(user ,token)
   {
     this.UpdateData= {
-        email: user.email,
         age: user.age,
         profile_picture : user.imgUrl,
         location : user.location
@@ -184,6 +185,7 @@ export class UserService
     var updates = {};
     updates['/Users/' + token] =  this.UpdateData;
     return firebase.database().ref().update(updates);
+    
   }
 
   public Search(query)
@@ -191,20 +193,21 @@ export class UserService
     this.UserRef = firebase.database().ref('/Users');
     if (this.Users)
     {
-        this.LoadedUsers = this.Users;
+        
         this.initializeItems();
-        this.LoadedUsers = this.LoadedUsers.filter((v)=>{
+        this.LoadedUsers = this.Users.filter((v)=>{
             if (v.email && query)
             {
-                if(v.email.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                if(v.email === query)
                 {
-                    return true;
+                    return 1;
                 }
                 else{
                     return false;
                 }
             }
         });
+        
     }
   }
   initializeItems(): void {
@@ -213,7 +216,7 @@ export class UserService
   public GetSearchedList(){
       return this.SearchedList.slice();
   }
-  public follow (folowUser :User,folower :User)
+  public follow (folowUser :User,folower)
   {
       if(this.Loggeduser)
       {

@@ -5,7 +5,7 @@ import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-import { NotificationService } from '../../services/notificationService';
+
 
 @IonicPage()
 @Component({
@@ -26,12 +26,11 @@ export class TabsPage {
   searchPage=SearchPage;
   profilePage=ProfilePage;
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public notficationService : NotificationService) {
+    public navParams: NavParams) {
   }
   ionViewWillEnter()
   {
-  	 this.notficationService.FollowNotfication();
+  	// this.notficationService.FollowNotfication();
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');

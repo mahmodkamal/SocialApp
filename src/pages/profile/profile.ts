@@ -109,6 +109,7 @@ export class ProfilePage {
   
   editProfile(f :NgForm)
   {
+    console.log(f);
     const loading = this.loading.create({
       content:"Updating...",
     });
@@ -119,13 +120,13 @@ export class ProfilePage {
     this.user.location = this.location;
     if(this.imagePath)
     {
+      console.log('pingo');
     const ImageRef=firebase.storage().ref("PostsPictures/image-"+new Date().getMilliseconds()+".jpg");
     ImageRef.putString(this.imagePath,firebase.storage.StringFormat.DATA_URL)
     .then((snapshot)=>{
     this.user.imgUrl=snapshot.downloadURL;
     this.useservice.UpdateProfile(this.user,this.useservice.Loggeduser.key);
     loading.dismiss();
-    f.reset();
   })
   .catch(error=>{
     loading.dismiss();
@@ -136,7 +137,7 @@ export class ProfilePage {
   });
   
    
-    console.log(f);
+   
   }
   }
 }

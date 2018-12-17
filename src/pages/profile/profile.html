@@ -16,7 +16,7 @@
     <div class="circle-pic">
         <ion-avatar item-start>
             <div class="image">
-                <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+                <img src="{{imagePath}}">
             </div>
           </ion-avatar>
     </div>
@@ -38,11 +38,6 @@
     </ion-item>
     
     <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input ngModel type="email" name="email"></ion-input>
-    </ion-item>
-    
-    <ion-item>
       <ion-label stacked>Age</ion-label>
       <ion-input ngModel type="age" name="age" ></ion-input>
     </ion-item>
@@ -58,7 +53,7 @@
           Select On Map	
           </button>
     </ion-item>
-  <button ion-button block>Save Profile</button>
+  <button ion-button type="submit" block>Save Profile</button>
     </form>
 <br>
 
@@ -75,57 +70,4 @@
    
    
    <hr>
-   <ion-list-header>
-    Posts
-  </ion-list-header>
-   <div *ngFor="let followuser of FollowingUsers">
-   <ion-card *ngFor="let post of followuser.myPosts">  
-     <ion-item>
-       <ion-avatar item-start>
-         <img src="{{followuser.imgUrl}}">
-       </ion-avatar>
-       <h2>{{followuser.username}}</h2>
-       <p>{{post.date}}</p>
-     </ion-item>
-     <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
    
-     <ion-card-content>
-       <p>{{post.text}}</p>
-     </ion-card-content>
-     <ion-row>
-      <div *ngIf="post.Like?.length == 0; then like else check "> </div> 
-        <ng-template #check>  
-         <ion-col >
-             <button ion-button clear small color="danger"  icon-start (click)="Like(post,followuser)" >
-               <ion-icon name='thumbs-up-outline'></ion-icon>
-                {{post.Like?.length }}
-             </button>
-           </ion-col>
-         <ng-template #dislike> 
-           <ion-col>
-                <button ion-button clear small color="danger"  icon-start (click)="disLike(post,followuser)">
-                   <ion-icon name='thumbs-up' ></ion-icon>
-                     {{post.Like?.length}}
-                </button>    
-           </ion-col>  
-         </ng-template> 
-       </ng-template>  
-       <ng-template #like>
-           <ion-col>
-               <button ion-button clear small color="danger"  icon-start (click)="Like(post,followuser)">
-                  <ion-icon name='thumbs-up-outline' ></ion-icon>
-                    {{post.Like?.length}}
-               </button>    
-          </ion-col>   
-       </ng-template>
-       <ion-col text-right>
-         <button ion-button clear small color="danger" icon-start (click)="share(post,followuser)">
-           <ion-icon name='share-alt'></ion-icon>
-            Share
-         </button>
-       </ion-col>
-     </ion-row>
-   </ion-card>
- </div> 
- </ion-content>
- 
