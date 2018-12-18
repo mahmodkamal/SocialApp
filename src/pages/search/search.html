@@ -13,9 +13,6 @@
       </form>
     <ion-list *ngIf="result">
       <ion-item *ngFor="let user of searchedList ; index as i">
-        <ion-avatar item-start>
-          <img src="{{user.imagUrl}}">
-        </ion-avatar>
         <h2>{{user.email}}</h2>
           <button class="icon" ion-button item-end (click)="follow(i)"> <ion-icon item-end  md="md-contacts"></ion-icon> </button>
       </ion-item>

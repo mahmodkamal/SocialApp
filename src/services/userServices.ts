@@ -8,6 +8,7 @@ import 'rxjs/Rx';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import { Post } from '../models/post';
+import { Notification } from '../models/notification';
 
 @Injectable()
 export class UserService
@@ -22,6 +23,7 @@ export class UserService
   UpdateData;
   hits =[];
   user:User;
+  FollowNotfication:Notification;
   public UserRef:firebase.database.Reference;
   constructor(private http :Http ,private  authService :AuthServices)
   {  
@@ -221,23 +223,24 @@ export class UserService
       return this.SearchedList.slice();
   }
   public follow (folowUser :User,folower)
-  {
+  { 
+      
       if(this.Loggeduser)
       {
-        this.Loggeduser.follow.push(folower.key);
-        folower.followers.push(folowUser.key);
-        firebase.database().ref('users/follow').set({
-          follow: folower.key
+        
+        firebase.database().ref('Users/' + this.Loggeduser.key+'/follow').set({
+          follow:folower.key
         });
-        firebase.database().ref('users/followers').set({
+        firebase.database().ref('Users/'+folower.key+'/followers').set({
           followers: this.Loggeduser.key
         });
-        firebase.database().ref('notfication').set({
-            content:'follow Notfication from '+ this.Loggeduser.email,
-            postid :'',
-            userid :this.Loggeduser.key,
-            type :'Follow'
-        });
+        this.FollowNotfication = new Notification(
+        this.Loggeduser.key,
+        'follow Notfication from '+ this.Loggeduser.email,
+        '',
+        folower.key,
+        'Follow');
+        firebase.database().ref('notfication').push(this.FollowNotfication);
         return true;
       }
     

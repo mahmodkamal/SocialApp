@@ -74,7 +74,7 @@
   <ion-card *ngFor="let post of followuser.myPosts">  
     <ion-item>
       <ion-avatar item-start>
-        <img src="{{followuser.imgUrl}}">
+        <img src="{{followuser?.imgUrl}}">
       </ion-avatar>
       <h2>{{followuser.username}}</h2>
       <p>{{post.date}}</p>

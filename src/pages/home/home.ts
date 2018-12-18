@@ -2,7 +2,7 @@ import { PostService } from './../../services/postService';
 import { UserService } from './../../services/userServices';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController, LoadingController} from 'ionic-angular';
+import { NavController, ToastController, LoadingController, NavParams} from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { NgForm } from '@angular/forms';
 import { Post } from '../../models/post';
@@ -19,7 +19,8 @@ export class HomePage implements OnInit {
  selctedPost="Follow"
   constructor
   (
-     public navCtrl: NavController 
+     public navCtrl: NavController ,
+     public navParams :NavParams
     ,private useservice: UserService 
     ,public camera:Camera
     ,public toastCtrl :ToastController
