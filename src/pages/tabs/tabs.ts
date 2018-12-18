@@ -58,7 +58,7 @@ export class TabsPage implements OnInit{
             console.log(value.content);
         }
         else{
-            this.notService.pushNotfication(value.content);
+            this.notService.pushNotfication('no notfication yet');
             console.log('no new follow');
         }
     });

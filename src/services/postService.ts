@@ -1,11 +1,15 @@
+import { UserService } from './userServices';
 import { ToastController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Post } from "../models/post";
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { Notification } from '../models/notification';
 @Injectable()
 export class PostService
 {
+    LikeNotfication :Notification;
+    DisLikeNotfication :Notification;
     constructor(private toastCtrl:ToastController){}
     public AddPost(post :Post,user :User)
     { 
@@ -80,6 +84,13 @@ export class PostService
           duration:3000
            }).present();})
          });
+         this.LikeNotfication =new Notification(
+            key,
+             user.email+'liked your post'+post.text,
+            '',
+            user.key,
+            'Follow');
+            firebase.database().ref('notfication').push(this.LikeNotfication);
         console.log(user);
     }
     public disLike(post:Post ,user:User,key:string)
@@ -115,6 +126,13 @@ export class PostService
           duration:3000
            }).present();})
          });
+         this.LikeNotfication =new Notification(
+            key,
+             user.email+'disliked your post'+post.text,
+            '',
+            user.key,
+            'Follow');
+            firebase.database().ref('notfication').push(this.LikeNotfication);
         console.log(user);
     }
     public share(post:Post ,user:User)
