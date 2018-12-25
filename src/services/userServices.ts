@@ -224,12 +224,9 @@ export class UserService
   }
   public follow (folowUser :User,folower)
   { 
-      
-      if(this.Loggeduser)
-      {
-        
-        firebase.database().ref('Users/' + this.Loggeduser.key+'/follow').set({
-          follow:folower.key
+    
+    /** firebase.database().ref('Users/' + this.Loggeduser.key+'/follow').set({
+      follow:folower.key
         });
         firebase.database().ref('Users/'+folower.key+'/followers').set({
           followers: this.Loggeduser.key
@@ -241,10 +238,52 @@ export class UserService
         folower.key,
         'Follow');
         firebase.database().ref('notfication').push(this.FollowNotfication);
+        return true;*/
+
+      if(this.Loggeduser)
+      {
+        const updateFolowuser=
+        {
+            email:folowUser.email, 
+            password :folowUser.password,
+            age :folowUser.age,
+            imgUrl:folowUser.imgUrl,
+            location :folowUser.location,
+            username :folowUser.username,
+            sharedpost: folowUser.sharedpost,
+            followers :folowUser.followers,
+            myPosts:folowUser.myPosts,
+            follow:folowUser.follow
+        }; 
+        const updateFolloweruser=
+        {
+            email:folower.email, 
+            password :folower.password,
+            age :folower.age,
+            imgUrl:folower.imgUrl,
+            location :folower.location,
+            username :folower.username,
+            sharedpost: folower.sharedpost,
+            followers :folower.followers,
+            myPosts:folower.myPosts,
+            follow:folower.follow
+        }; 
+
+        firebase.database().ref('Users/' +folowUser.key).set(updateFolowuser);
+        firebase.database().ref('Users/'+folower.key).set(updateFolloweruser);
+        this.FollowNotfication = new Notification(
+        this.Loggeduser.key,
+        'follow Notfication from '+ this.Loggeduser.email,
+        '',
+        folower.key,
+        'Follow');
+        firebase.database().ref('notfication').push(this.FollowNotfication);
         return true;
       }
+ }
     
-  }
+    
+  
   public followNotfication()
   {
     

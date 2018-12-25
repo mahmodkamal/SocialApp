@@ -20,7 +20,7 @@ import { NgForm } from '@angular/forms';
 export class SearchPage {
    searchedList :any[];
    result =false;
-   requestedUser:User[];
+   requestedUser:User;
    req:User;
    loggedUser :User;
   constructor(public navCtrl: NavController,
@@ -46,9 +46,13 @@ export class SearchPage {
     if (this.usrService.Loggeduser)
     {
       this.loggedUser = this.usrService.Loggeduser;
+      this.requestedUser.followers.push(this.loggedUser.key);
+      this.loggedUser.follow.push(this.requestedUser.key);
       this.usrService.follow(this.loggedUser,this.requestedUser);
       console.log('followed');  
     }
+    
+    
   }
 
 }

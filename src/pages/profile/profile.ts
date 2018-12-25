@@ -127,8 +127,12 @@ export class ProfilePage {
     const ImageRef=firebase.storage().ref("PostsPictures/image-"+new Date().getMilliseconds()+".jpg");
     ImageRef.putString(this.imagePath,firebase.storage.StringFormat.DATA_URL)
     .then((snapshot)=>{
-    this.user.imgUrl=this.imagePath;
-    this.useservice.UpdateProfile(this.user,this.useservice.Loggeduser.key);
+    ImageRef.getDownloadURL().then((url)=>
+      {
+        this.user.imgUrl=url;
+        this.useservice.UpdateProfile(this.user,this.useservice.Loggeduser.key);
+      });
+    
     loading.dismiss();
   })
   .catch(error=>{

@@ -32,6 +32,7 @@ export class TabsPage implements OnInit{
   profilePage=ProfilePage;
   notification:Notification[];
   key;
+  lastNot :Notification;
   user :User;
   
   constructor(public navCtrl: NavController,
@@ -52,7 +53,7 @@ export class TabsPage implements OnInit{
    if(this.notification)
    {
     this.notification.forEach((value)=>{
-        if(value.userid == this.user.key)
+        if(value.userid === this.user.key)
         {
             this.notService.pushNotfication(value.content);
             console.log(value.content);
@@ -68,10 +69,21 @@ export class TabsPage implements OnInit{
    }
     })
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TabsPage');
-  }
-
+  /*ionViewDidEnter() {
+    this.notService.KeepUpdtedNotfications();
+    
+      this.lastNot = this.notService.lastNotfication;
+   if(this.lastNot.userid == this.user.key)
+   {
+    this.notService.pushNotfication(this.lastNot.content);
+      console.log(this.lastNot.content);
+   }
+   else{
+    this.notService.pushNotfication('no new last notfication');
+    console.log('no new last notfication');
+       }
+  
+      }*/
  
   
 }

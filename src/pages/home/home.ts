@@ -11,7 +11,7 @@ import firebase from "firebase";
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
+export class HomePage  {
  user:User;
  post:Post;
  FollowingUsers =[];
@@ -35,9 +35,23 @@ export class HomePage implements OnInit {
   {
     
   }
-  ngOnInit()
+ /* ngOnInit()
   {
      this.useservice.RetriveUsers()
+     .then(()=>
+      {
+        console.log(this.useservice.EmailOfloginUser);
+        this.useservice.RetriveSpecificUserUser(this.useservice.EmailOfloginUser);
+        this.user=this.useservice.Loggeduser;
+        this.FollowingUsers=this.useservice.RerieveFollowedUsers(this.user.follow);
+        console.log(this.FollowingUsers);
+      }
+      );
+  }*/
+  ionViewDidEnter()
+  {
+    console.log("home page");
+    this.useservice.RetriveUsers()
      .then(()=>
       {
         console.log(this.useservice.EmailOfloginUser);
@@ -112,9 +126,16 @@ export class HomePage implements OnInit {
     const ImageRef=firebase.storage().ref("PostsPictures/image-"+new Date().getMilliseconds()+".jpg");
     ImageRef.putString(this.imagePath,firebase.storage.StringFormat.DATA_URL)
     .then((snapshot)=>{
-    this.post.imgurl=snapshot.downloadURL;
-    this.user.myPosts.push(this.post);
-    this.postService.AddPost(this.post,this.user);
+    ImageRef.getDownloadURL().then((url)=>
+    {
+      this.post.imgurl=url;
+      console.log(this.post.imgurl);
+      this.user.myPosts.push(this.post);
+      this.postService.AddPost(this.post,this.user);
+    });
+    
+    
+    this.imagePath="";
     loading.dismiss();
     form.reset();
   })

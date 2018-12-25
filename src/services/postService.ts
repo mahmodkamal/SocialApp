@@ -89,7 +89,7 @@ export class PostService
              user.email+'liked your post'+post.text,
             '',
             user.key,
-            'Follow');
+            'Like');
             firebase.database().ref('notfication').push(this.LikeNotfication);
         console.log(user);
     }
@@ -131,7 +131,7 @@ export class PostService
              user.email+'disliked your post'+post.text,
             '',
             user.key,
-            'Follow');
+            'dislike');
             firebase.database().ref('notfication').push(this.LikeNotfication);
         console.log(user);
     }

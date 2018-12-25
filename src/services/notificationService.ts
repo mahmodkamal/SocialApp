@@ -16,6 +16,7 @@ export class NotificationService
  notList:Notification[];
  Notfications:Notification[];
  notfication :Notification;
+ lastNotfication:Notification;
  setSound() {
     if (this.platform.is('android')) {
       return 'file://assets/media/hangouts_incoming_call.ogg'
@@ -42,23 +43,64 @@ export class NotificationService
       this.notList = this.gitNotList(snapshot);
     })
  } 
+ public KeepUpdtedNotfications()
+ {
+   const notref = firebase.database().ref('notfication');
+   return notref.on("child_added",(lastNot)=>{
+    this.lastNotfication.content = lastNot.val().content;
+    this.lastNotfication.id = lastNot.val().id;
+    this.lastNotfication.postid =lastNot.val().postid;
+    this.lastNotfication.userid = lastNot.val().userid;
+
+   })
+ }
+
+
+ snapToArray(snap){
+   let returnarr=[]
+    snap.forEach(element => {
+      let item=element.val();
+      item.id=element.key;
+      returnarr.push(item);
+    });
+    return returnarr;
+  }
  public gitNotList(snapshot)
  {  
  let not:Notification=new Notification('','','','','');
- let notification=[];
+ let notification :Notification[]=[];
  snapshot.forEach(function(childSnapshot) 
+ { 
+   console.log(childSnapshot);
+   not.id=childSnapshot.key;
+   not.postid=childSnapshot.val().postid;
+   not.type=childSnapshot.val().type;
+   not.userid=childSnapshot.val().userid;
+   not.content=childSnapshot.val().content;
+   console.log(not);
+   notification.push(not);
+   not=new Notification('','','','','');
+
+ }); 
+ console.log(notification);
+ return notification; 
+ }
+ 
+ public gitlastNot(lastnot)
+ {  
+ let not:Notification=new Notification('','','','','');
+ lastnot.forEach(function(childSnapshot) 
  {
    not.id=childSnapshot.key;
    not.postid=childSnapshot.val().postid;
    not.type=childSnapshot.val().type;
    not.userid=childSnapshot.val().userid;
    not.content=childSnapshot.val().content;
-   notification.push(not);
+ 
 
  }); 
- return notification; 
+ return not; 
  }
- 
  public pushMynot(notList, user:User)
  {  
     

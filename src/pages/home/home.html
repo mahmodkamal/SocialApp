@@ -74,12 +74,12 @@
   <ion-card *ngFor="let post of followuser.myPosts">  
     <ion-item>
       <ion-avatar item-start>
-        <img src="{{followuser?.imgUrl}}">
+        <img src="{{followuser.imgUrl}}">
       </ion-avatar>
       <h2>{{followuser.username}}</h2>
       <p>{{post.date}}</p>
     </ion-item>
-    <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+    <img *ngIf="post.imgurl!=''" src="{{post.imgurl}}">
   
     <ion-card-content>
       <p>{{post.text}}</p>
@@ -129,7 +129,7 @@
       <h2>{{user.username}}</h2>
       <p>{{post.date}}</p>
     </ion-item>
-    <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+    <img *ngIf="post.imgurl!=''" src="{{post.imgurl}}">
   
     <ion-card-content>
       <p>{{post.text}}</p>
@@ -178,7 +178,7 @@
       <h2>{{user.username}}</h2>
       <p>{{post.date}}</p>
     </ion-item>
-    <img src="../../assets/imgs/43101510_1856077347812593_1432479448434737152_n.jpg">
+    <img *ngIf="post.imgurl!=''" src="{{post.imgurl}}">
   
     <ion-card-content>
       <p>{{post.text}}</p>
