@@ -7,6 +7,9 @@
   <ion-content>
     <ion-list *ngFor="let notfic of notification">
       <ion-item>
+          <ion-avatar item-start>
+              <img [src]="user?.imgUrl">
+            </ion-avatar>
         <h2>{{notfic.content}}</h2>   
         <hr>
       </ion-item>

@@ -41,7 +41,7 @@ import { NotificationService } from '../services/notificationService';
   imports: [
     BrowserModule,
     AgmCoreModule.forRoot({
-      apiKey:'AIzaSyDoDSUnSuYfJCLY-PkdDBIa8ZN_2BE6ank'
+      apiKey:'add yours'
     }),
     IonicModule.forRoot(MyApp),
     HttpModule

@@ -22,6 +22,7 @@ import { UserService } from '../../services/userServices';
 export class NotificationPage implements OnInit {
   notification:Notification[];
   user :User;
+  users:User[];
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public Notification : LocalNotifications,
@@ -39,7 +40,7 @@ export class NotificationPage implements OnInit {
    {
     this.notification.forEach((value)=>{
         if(value.userid === this.user.key)
-        {
+        { 
             this.notService.pushNotfication(value.content);
             console.log(value.content);
         }
@@ -53,6 +54,7 @@ export class NotificationPage implements OnInit {
        console.log("no not yet")
    }
     })
+    this.users = this.userService.GetUsers();
   }
   ionViewWillEnter()
   {
@@ -61,6 +63,7 @@ export class NotificationPage implements OnInit {
       this.notification  = this.notService.notList;
     })
     this.notService.pushMynot(this.notification,this.userService.Loggeduser);
+
 
   }
   ionViewDidLoad() {

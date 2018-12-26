@@ -96,6 +96,7 @@ export class NotificationService
    not.type=childSnapshot.val().type;
    not.userid=childSnapshot.val().userid;
    not.content=childSnapshot.val().content;
+  
  
 
  }); 
